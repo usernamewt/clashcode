@@ -11,8 +11,7 @@
 import language from './language.vue';
 import { useLocale } from "../../hooks/languageHook";
  
-const { t } =
-  useLocale();
+const { t } = useLocale();
 </script>
 
 
