@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from '../router';
 // 创建axios实例
 const request = axios.create({
     baseURL: '',// 所有的请求地址前缀部分
@@ -15,10 +16,12 @@ const request = axios.create({
 // request拦截器
 request.interceptors.request.use(
     config => {
-        let token = localStorage.getItem("x-auth-token");
+        let token = localStorage.getItem("Admin-Token");
         if (token) {
             // 添加请求头
             config.headers["Authorization"]="Bearer "+ token
+        } else {
+            router.push("/login");
         }
         return config
     },
@@ -32,6 +35,11 @@ request.interceptors.request.use(
 request.interceptors.response.use(
     response => {
         // 对响应数据做点什么
+        if (response.data.code === 401) {
+            // token失效，跳转到登录页面
+            localStorage.removeItem("Admin-Token");
+            router.push("/login");
+        }
         return response.data
     },
     error => {  

@@ -1,6 +1,6 @@
 export default {
   message: {
-    hello: "你好",
+    hello: "网络加速",
     welcome: "欢迎",
   },
   navbar: {
@@ -15,6 +15,40 @@ export default {
   login:{
     "login":"登录",
     "register":"注册",
-    "submit":"提交"
+    "submit":"提交",
+    "username":"用户名",
+    "password":"密码",
+    "loginName":"登录",
+    "code":"验证码",
+    "loginPlaceholder":"请输入用户名",
+    "passwordPlaceholder":"请输入密码",
+    "codePlaceholder":"请输入验证码",
+    "getCode":"获取验证码",
+    "title":"欢迎使用"
+  },
+  menu:{
+    "equipmentlist":"设备列表",
+    "acceleration":"加速目标"
+  },
+  equipmentfrom:{
+    "name":"设备名称",
+    "sn":"设备序列号",
+    "status":"设备状态",
+    "time":"设备登陆时间",
+    "online":"在线",
+    "offline":"离线",
+  },
+  option:{
+    "add":"新增",
+    "edit":"编辑",
+    "delete":"删除",
+    "confirm":"确认",
+    "cancel":"取消",
+    "search":"搜索",
+    "reset":"重置",
+    "addSuccess":"添加成功",
+    "editSuccess":"编辑成功",
+    "deleteSuccess":"删除成功",
+    "deleteConfirm":"确认删除吗?",
   }
 };

@@ -3,18 +3,18 @@ import { createRouter, createWebHistory, RouteRecordRaw, RouterOptions } from 'v
 // 定义路由记录
 const routes: Array<RouteRecordRaw> = [
     {
-        path: '/',
-        component: () => import('@/components/HelloWorld.vue')
+        path: '/login',
+        component: () => import('../components/userProfile/Login.vue')
     },
     {
-        path: '/login',
+        path: '/',
         name: 'Home',
-        component: () => import('@/components/userProfile/Login.vue'),
+        component: () => import('../components/MainContainer.vue'),
     },
     {
         path: '/register',
         name: 'About',
-        component: () => import('@/components/userProfile/Register.vue'),
+        component: () => import('../components/userProfile/Register.vue'),
     },
     // 添加更多的路由记录...
 ];

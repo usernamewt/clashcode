@@ -1,22 +1,18 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+// import MainContainer from './components/MainContainer.vue';
+import language from './components/layout/language.vue';
 </script>
 
 <template>
-  <HelloWorld />
+  <language />
+  <router-view></router-view>
 </template>
 
 <style scoped lang="less">
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.languages {
+  position: fixed;
+  top: 1vh;
+  right: 4vw;
+  z-index: 999;
 }
 </style>

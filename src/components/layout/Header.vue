@@ -1,14 +1,11 @@
 <template>
     <div class="header">
         <div class="title">{{ t("message.hello") }}</div>
-        <div class="options">
-            <language />
-        </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import language from './language.vue';
+
 import { useLocale } from "../../hooks/languageHook";
  
 const { t } = useLocale();
@@ -17,7 +14,7 @@ const { t } = useLocale();
 
 <style lang="less" scoped>
 .header {
-    width: 100vw;
+    width: 100%;
     height: 9vh;
     border-bottom: 1px solid #eee;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
