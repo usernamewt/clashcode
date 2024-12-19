@@ -4,6 +4,8 @@ export default {
   message: {
     hello: "Network Acceleration",
     welcome: "Welcome",
+    "equipmentList": "Device List",
+    "accelerationTarget": "Acceleration Target",
   },
   navbar: {
     action: {

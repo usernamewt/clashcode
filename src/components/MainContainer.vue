@@ -8,8 +8,10 @@ import BaseFormer from "./layout/BaseFormer.vue";
 import BaseTable from "./layout/BaseTable.vue";
 import { UnorderedListOutlined, ApiOutlined } from "@ant-design/icons-vue";
 import { useLocale } from "../hooks/languageHook";
-
+import { useTestStore } from "../store";
+const baseStore = useTestStore();
 const { t } = useLocale();
+const type = ref("equipmentlist");
 const onCollapse = (collapsed: boolean, type: string) => {
   console.log(collapsed, type);
 };
@@ -27,6 +29,21 @@ const handelReset = () => {
 };
 
 const selectedKeys = ref<string[]>(["1"]);
+
+const handelmenuswitch = (item: any) => {
+  switch (item.key) {
+    case "1":
+      type.value = "equipmentlist";
+      baseStore.menuType = "equipmentlist";
+      break;
+    case "2":
+      type.value = "acceryon";
+      baseStore.menuType = "acceryon";
+      break;
+    default:
+      router.push("/equipmentlist");
+  }
+};
 onMounted(() => {
   const userInfo = getStorage("userInfo");
   if (!userInfo.username) {
@@ -44,7 +61,12 @@ onMounted(() => {
       @breakpoint="onBreakpoint"
     >
       <div class="logo">SD-WAN</div>
-      <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
+      <a-menu
+        v-model:selectedKeys="selectedKeys"
+        theme="dark"
+        mode="inline"
+        @click="handelmenuswitch"
+      >
         <a-menu-item key="1">
           <UnorderedListOutlined />
           <span class="nav-text">{{ t("menu.equipmentlist") }}</span>
@@ -63,6 +85,7 @@ onMounted(() => {
       <Header />
       <a-layout-content :style="{ margin: '24px 16px 0' }">
         <div
+          v-if="type === 'equipmentlist'"
           :style="{
             padding: '24px',
             background: '#fff',
@@ -73,6 +96,15 @@ onMounted(() => {
           <BaseFormer @search="handelSearchVal" @reset="handelReset" />
           <BaseTable />
         </div>
+        <div
+          v-else-if="type === 'acceryon'"
+          :style="{
+            padding: '24px',
+            background: '#fff',
+            minHeight: '360px',
+            overflowX: 'hidden',
+          }"
+        ></div>
       </a-layout-content>
       <a-layout-footer style="text-align: center"> </a-layout-footer>
     </a-layout>

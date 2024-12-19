@@ -2,6 +2,8 @@ export default {
   message: {
     hello: "网络加速",
     welcome: "欢迎",
+    "equipmentList": "设备列表",
+    "accelerationTarget": "加速目标",
   },
   navbar: {
     action: {
