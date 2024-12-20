@@ -2,7 +2,7 @@ import axios from 'axios'
 import router from '../router';
 // 创建axios实例
 const request = axios.create({
-    baseURL: '',// 所有的请求地址前缀部分
+    baseURL: '/api',// 所有的请求地址前缀部分
     timeout: 80000, // 请求超时时间(毫秒)
     withCredentials: true,// 异步请求携带cookie
     // headers: {
@@ -20,9 +20,10 @@ request.interceptors.request.use(
         if (token) {
             // 添加请求头
             config.headers["Authorization"]="Bearer "+ token
-        } else {
-            router.push("/login");
-        }
+        } 
+        // else {
+        //     router.push("/login");
+        // }
         return config
     },
     error => {

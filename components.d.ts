@@ -7,8 +7,11 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AAvatar: typeof import('ant-design-vue/es')['Avatar']
     ABackTop: typeof import('ant-design-vue/es')['BackTop']
     AButton: typeof import('ant-design-vue/es')['Button']
+    ACard: typeof import('ant-design-vue/es')['Card']
+    ACardMeta: typeof import('ant-design-vue/es')['CardMeta']
     ACheckbox: typeof import('ant-design-vue/es')['Checkbox']
     ADatePicker: typeof import('ant-design-vue/es')['DatePicker']
     AForm: typeof import('ant-design-vue/es')['Form']
@@ -25,11 +28,16 @@ declare module 'vue' {
     APopconfirm: typeof import('ant-design-vue/es')['Popconfirm']
     ARadio: typeof import('ant-design-vue/es')['Radio']
     ARadioGroup: typeof import('ant-design-vue/es')['RadioGroup']
+    ASteps: typeof import('ant-design-vue/es')['Steps']
     ATable: typeof import('ant-design-vue/es')['Table']
+    ATag: typeof import('ant-design-vue/es')['Tag']
     ATypographyLink: typeof import('ant-design-vue/es')['TypographyLink']
+    BaseEcharts: typeof import('./src/components/layout/BaseEcharts.vue')['default']
     BaseFormer: typeof import('./src/components/layout/BaseFormer.vue')['default']
     BaseMenu: typeof import('./src/components/layout/BaseMenu.vue')['default']
+    BaseSteps: typeof import('./src/components/component/BaseSteps.vue')['default']
     BaseTable: typeof import('./src/components/layout/BaseTable.vue')['default']
+    BaseUrls: typeof import('./src/components/component/BaseUrls.vue')['default']
     Header: typeof import('./src/components/layout/Header.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     Language: typeof import('./src/components/layout/language.vue')['default']
@@ -38,5 +46,8 @@ declare module 'vue' {
     Register: typeof import('./src/components/userProfile/Register.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TargetList: typeof import('./src/components/component/TargetList.vue')['default']
+    TargetNetwork: typeof import('./src/components/component/TargetNetwork.vue')['default']
+    TargetWebUrl: typeof import('./src/components/component/TargetWebUrl.vue')['default']
   }
 }

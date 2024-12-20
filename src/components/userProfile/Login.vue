@@ -1,16 +1,16 @@
 <template>
-  <div class="login-container">
+  <div class="login-container" @touchmove.prevent>
     <a-form
       :model="formState"
       name="basic"
       layout="horizontal"
-      :label-col="{ span: 8,style:{ textAlign:'start'} }"
+      :label-col="{ span: 8, style: { textAlign: 'start' } }"
       :wrapper-col="{ span: 16 }"
       autocomplete="off"
       class="login-form"
       ref="loginFormRef"
     >
-      <h2 style="text-align: center;margin-bottom: 2vw;">
+      <h2 style="text-align: center; margin-bottom: 2vw">
         {{ t("login.title") }}
       </h2>
       <a-form-item
@@ -28,27 +28,35 @@
       >
         <a-input-password v-model:value="formState.password" />
       </a-form-item>
-      <a-form-item 
-        :label="t('login.code')" 
+      <a-form-item
+        :label="t('login.code')"
         name="code"
-        :rules="[{ required: true, message: t('login.codePlaceholder') }]">
+        :rules="[{ required: true, message: t('login.codePlaceholder') }]"
+      >
         <a-input-search v-model:value="formState.code">
           <template #enterButton>
-            <a-button type="primary" @click="getCodeReq" :loading="getCodeLoading">{{ !getCodeLoading?t("login.getCode"):time+'s' }}</a-button>
+            <a-button
+              type="primary"
+              @click="getCodeReq"
+              :loading="getCodeLoading"
+              >{{ !getCodeLoading ? t("login.getCode") : time + "s" }}</a-button
+            >
           </template>
         </a-input-search>
         <!-- <a-button type="primary">获取验证码</a-button> -->
       </a-form-item>
 
       <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
-        <a-button @click="onFinish" type="primary" html-type="submit">{{ t("login.login") }}</a-button>
+        <a-button @click="onFinish" type="primary" html-type="submit">{{
+          t("login.login")
+        }}</a-button>
       </a-form-item>
     </a-form>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive,ref } from "vue";
+import { reactive, ref } from "vue";
 import { useLocale } from "../../hooks/languageHook";
 import { setStorage } from "../../utils/storage";
 import { setToken } from "../../utils/auth";
@@ -57,7 +65,7 @@ const { t } = useLocale();
 const loginFormRef = ref();
 const timer = ref();
 const getCodeLoading = ref(false);
-const time = ref(0)
+const time = ref(0);
 interface FormState {
   username: string;
   password: string;
@@ -83,37 +91,38 @@ const getCodeReq = () => {
       getCodeLoading.value = false;
     }
   }, 1000);
-}
-
-
-const onFinish = () => {
-  loginFormRef!.value!.validate().then(()=>{
-    setStorage("userInfo", {...formState});
-    setToken("123456");
-    router.push('/');
-  }).catch(()=>{
-    console.log("error");
-  })
 };
 
+const onFinish = () => {
+  loginFormRef!
+    .value!.validate()
+    .then(() => {
+      setStorage("userInfo", { ...formState });
+      setToken("123456");
+      router.push("/");
+    })
+    .catch(() => {
+      console.log("error");
+    });
+};
 </script>
 
 <style lang="less" scoped>
-@media(min-width:992px) and (max-width:1199px){
+@media (min-width: 992px) and (max-width: 1199px) {
   .login-container {
     .login-form {
       width: 60vw !important;
     }
   }
 }
-@media(min-width:768px) and (max-width:991px){
+@media (min-width: 768px) and (max-width: 991px) {
   .login-container {
     .login-form {
       width: 80vw !important;
     }
   }
 }
-@media(max-width:767px){
+@media (max-width: 767px) {
   .login-container {
     .login-form {
       width: 90vw !important;

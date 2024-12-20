@@ -1,35 +1,57 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch, nextTick } from "vue";
 import Header from "./layout/Header.vue";
 import { getStorage } from "../utils/storage";
 import router from "../router";
 // import BaseMenu from "./layout/BaseMenu.vue";
-import BaseFormer from "./layout/BaseFormer.vue";
+// 查询表单
+// import BaseFormer from "./layout/BaseFormer.vue";
+// 加速目标列表
+import TargetList from "./component/TargetList.vue";
 import BaseTable from "./layout/BaseTable.vue";
 import { UnorderedListOutlined, ApiOutlined } from "@ant-design/icons-vue";
 import { useLocale } from "../hooks/languageHook";
 import { useTestStore } from "../store";
+import { getEquipmentList } from "../api/user";
+import { message } from "ant-design-vue";
 const baseStore = useTestStore();
 const { t } = useLocale();
+const device_list = ref<any>([]);
 const type = ref("equipmentlist");
 const onCollapse = (collapsed: boolean, type: string) => {
   console.log(collapsed, type);
 };
 
+// 监听菜单通过其他方式切换
+watch(
+  () => baseStore.menuType,
+  (newVal: string) => {
+    type.value = newVal;
+    if (newVal === "equipmentlist") {
+      selectedKeys.value = ["1"];
+    } else if (newVal === "acceryon") {
+      selectedKeys.value = ["2"];
+    }
+  }
+);
+
 const onBreakpoint = (broken: boolean) => {
   console.log(broken);
 };
 
-const handelSearchVal = (formVal: any) => {
-  console.log(formVal);
-};
+// 查询表单
+// const handelSearchVal = (formVal: any) => {
+//   console.log(formVal);
+// };
 
-const handelReset = () => {
-  console.log("reset");
-};
+// const handelReset = () => {
+//   console.log("reset");
+// };
 
+// 当前选中的menu
 const selectedKeys = ref<string[]>(["1"]);
 
+// 处理menu切换，如果没有选择设备，无法进入加速目标
 const handelmenuswitch = (item: any) => {
   switch (item.key) {
     case "1":
@@ -37,19 +59,41 @@ const handelmenuswitch = (item: any) => {
       baseStore.menuType = "equipmentlist";
       break;
     case "2":
-      type.value = "acceryon";
-      baseStore.menuType = "acceryon";
-      break;
+      if (!baseStore.deviceId) {
+        nextTick(() => {
+          selectedKeys.value = ["1"];
+        });
+        message.warning("请先选择设备");
+        break;
+      } else {
+        type.value = "acceryon";
+        baseStore.menuType = "acceryon";
+        break;
+      }
     default:
       router.push("/equipmentlist");
   }
 };
+
+// 进入首页判断是否有登陆信息
+// TODO
 onMounted(() => {
   const userInfo = getStorage("userInfo");
   if (!userInfo.username) {
     router.push("/login");
+  } else {
+    getList();
   }
 });
+
+// 获取设备列表
+const getList = async () => {
+  let res = await getEquipmentList("2");
+  if (res.code === 0) {
+    device_list.value = res.data;
+  } else {
+  }
+};
 </script>
 
 <template>
@@ -84,6 +128,7 @@ onMounted(() => {
     <a-layout>
       <Header />
       <a-layout-content :style="{ margin: '24px 16px 0' }">
+        <!-- 设备列表 -->
         <div
           v-if="type === 'equipmentlist'"
           :style="{
@@ -93,9 +138,11 @@ onMounted(() => {
             overflowX: 'hidden',
           }"
         >
-          <BaseFormer @search="handelSearchVal" @reset="handelReset" />
-          <BaseTable />
+          <!-- 查询表单 -->
+          <!-- <BaseFormer @search="handelSearchVal" @reset="handelReset" /> -->
+          <BaseTable :tableData="device_list" />
         </div>
+        <!-- 加速目标 -->
         <div
           v-else-if="type === 'acceryon'"
           :style="{
@@ -104,7 +151,12 @@ onMounted(() => {
             minHeight: '360px',
             overflowX: 'hidden',
           }"
-        ></div>
+        >
+          <TargetList v-if="!baseStore.isShowUrl" />
+          <div v-else>
+            <!-- TODO url展示编辑页 -->
+          </div>
+        </div>
       </a-layout-content>
       <a-layout-footer style="text-align: center"> </a-layout-footer>
     </a-layout>
@@ -120,6 +172,7 @@ onMounted(() => {
   line-height: 32px;
   color: #fff;
   margin: 16px;
+  cursor: pointer;
 }
 
 .site-layout-sub-header-background {

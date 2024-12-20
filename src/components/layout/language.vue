@@ -25,6 +25,11 @@ const switchLang = async () => {
 </script>
 
 <style lang="less" scoped>
+@media (max-width: 767px) {
+  .language-wrapper {
+    right: 10vw !important;
+  }
+}
 .language-wrapper {
   height: 9vh;
   display: flex;

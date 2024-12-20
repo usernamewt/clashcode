@@ -35,12 +35,19 @@ export default {
     "acceleration":"Acceleration Target"
   },
   equipmentfrom:{
-    "name":"Device Name",
-    "sn":"Device Serial Number",
-    "status":"Device Status",
-    "time":"Device Login Time",
+    "name":"Name",
+    "sn":"Serial Number",
+    "status":"Status",
+    "time":"Login Time",
     "online":"Online",
-    "offline":"Offline"
+    "offline":"Offline",
+    "location":"Location",
+    "mode":"Mode",
+    "outlet":'Outlet',
+    "firmware":"Firmware Version",
+    "lastOnline":"Last Online",
+    "action":"Action",
+    "ip":"IP"
   },
   option:{
     "add":"Add",

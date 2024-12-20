@@ -12,6 +12,7 @@
     "@types/node": "^22.10.2",
     "ant-design-vue": "4.x",
     "axios": "^1.7.9",
+    "echarts": "^5.5.1",
     "element-plus": "^2.9.0",
     "js-cookie": "^3.0.5",
     "less": "^4.2.1",

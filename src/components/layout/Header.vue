@@ -3,7 +3,10 @@
     <div class="title" v-if="type === 'equipmentlist'">
       {{ t("message.equipmentList") }}
     </div>
-    <div class="title" v-else>{{ t("message.accelerationTarget") }}</div>
+    <div class="title" v-else>
+      <span style="font-weight: bolder">{{ baseStore.deviceLocation }}</span>
+    </div>
+    <LogoutOutlined class="logout" @click="logout" />
   </div>
 </template>
 
@@ -11,12 +14,12 @@
 import { watch, ref } from "vue";
 import { useLocale } from "../../hooks/languageHook";
 import { useTestStore } from "../../store";
+import { LogoutOutlined } from "@ant-design/icons-vue";
+import router from "../../router";
 const { t } = useLocale();
 const baseStore = useTestStore();
 const type = ref("equipmentlist");
 watch(baseStore, () => {
-  console.log(baseStore.menuType);
-
   switch (baseStore.menuType) {
     case "equipmentlist":
       type.value = "equipmentlist";
@@ -28,6 +31,11 @@ watch(baseStore, () => {
       break;
   }
 });
+
+const logout = () => {
+  localStorage.removeItem("userInfo");
+  router.push("/login");
+};
 </script>
 
 <style lang="less" scoped>
@@ -56,6 +64,12 @@ watch(baseStore, () => {
     line-height: 2em;
     text-align: center;
     font-weight: bolder;
+  }
+  .logout {
+    cursor: pointer;
+    &:hover {
+      color: #1890ff;
+    }
   }
 }
 </style>

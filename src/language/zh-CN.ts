@@ -33,12 +33,19 @@ export default {
     "acceleration":"加速目标"
   },
   equipmentfrom:{
-    "name":"设备名称",
-    "sn":"设备序列号",
-    "status":"设备状态",
-    "time":"设备登陆时间",
+    "name":"名称",
+    "sn":"序列号",
+    "status":"状态",
+    "time":"登陆时间",
     "online":"在线",
     "offline":"离线",
+    "location":"位置",
+    "mode":"模式",
+    "outlet":'出口',
+    "firmware":"固件版本",
+    "lastOnline":"最后在线",
+    "action":"操作",
+    "ip":"IP地址"
   },
   option:{
     "add":"新增",
